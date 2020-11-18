@@ -1,0 +1,15 @@
+.head {
+  grid-area: header;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  color: #7c4c05;
+  font-weight: 400;
+}
+
+.logo img{
+  width: 50px;
+}

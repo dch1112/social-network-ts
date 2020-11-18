@@ -1,17 +1,21 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
+import s from './Header.module.css'
 
-interface OwnProps {
+type PropsType = {
   id: number
 }
 
-type Props = OwnProps;
 
-const Header: FunctionComponent<Props> = (props) => {
+const Header = (props: PropsType) => {
 
   return (
-    <header className='header'>
-      Header
-      {props.id}
+    <header className={s.head}>
+      <div className={s.logo}>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Eo_circle_brown_letter-r.svg/1200px-Eo_circle_brown_letter-r.svg.png" alt="Logo"/>eact Social Network
+      </div>
+
+
+
     </header>
   );
 };
