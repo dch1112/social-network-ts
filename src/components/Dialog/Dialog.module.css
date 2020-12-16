@@ -1,0 +1,72 @@
+.messageContainer {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  display: flex;
+  align-items: flex-end;
+  padding: 5px;
+  margin: 0 10px;
+}
+
+.dialogMessages {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+  padding: 0;
+  min-height: 400px;
+  width: 200px;
+}
+
+.messageContent {
+  display: flex;
+  position: relative;
+  background-color: #ffc07c;
+  /*border-radius: 10px 10px 10px 0;*/
+  /*border: 2px solid #7c4c05;*/
+}
+
+.messageText {
+  /*text-align: center;*/
+  /*align-content: center;*/
+  /*align-self: center;*/
+  margin: 5px 10px;
+  min-width: 50px;
+}
+
+.mineMessage {
+  text-align: end;
+  border-radius: 10px 10px 0 10px;
+  justify-content: flex-end;
+}
+
+.notMineMessage {
+  text-align: start;
+  border-radius: 10px 10px 10px 0px;
+}
+
+.companionName,
+.messages{
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #ffc07c;
+  border-radius: 5px;
+}
+
+.messages{
+  min-height: border-box;
+}
+
+.newMessage{
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 2px solid #ffc07c;
+}
+
+.newMessageInput{
+  width: 300px;
+  margin: 5px 10px;
+}
+
+.newMessageButton{
+
+}

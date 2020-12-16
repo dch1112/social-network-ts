@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+.postContainer {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  display: flex;
+  align-items: flex-end;
+  padding: 5px;
+  margin: 0 10px;
+}
+
+.postContent {
+  display: flex;
+  position: relative;
+  background-color: #ffc07c;
+  border-radius: 10px 10px 10px 0;
+  /*border: 2px solid #7c4c05;*/
+}
+
+.postMessage {
+  align-self: center;
+  margin: 8px;
+}
+
+.likeImg {
+  height: 12px;
+  width: 12px;
+  margin: 2px;
+}
+
+.post {
+  color: rgb(216, 222, 211);
+}
+
+.likes {
+  display: flex;
+  align-self: flex-end;
+  margin: 5px 10px;
+  color: rgb(43, 68, 37);
+  font-size: 12px;
+  align-items: center;
+}
+
+.newPost{
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 2px solid #ffc07c;
+}
+
+.newPostInput{
+  width: 300px;
+  margin: 5px 10px;
+}
+
+.newPostButton{
+
+}

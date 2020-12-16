@@ -1,0 +1,18 @@
+.dialogsContainer {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+.dialogNames {
+  padding: 0px;
+}
+
+.dialogName {
+  text-decoration: none;
+  color: #7c4c05;
+}
+
+.dialogNameActive {
+  color: #4c2f04;
+  font-weight: 500;
+}
