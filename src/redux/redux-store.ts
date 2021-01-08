@@ -7,8 +7,11 @@ const rootReducer = combineReducers({
   profilePage: profilePageReducer
 })
 
-export type AppStateType = ReturnType<typeof rootReducer>
+export type AppRootStateType = ReturnType<typeof rootReducer>
 
 let store = createStore(rootReducer)
 
 export default store
+
+// @ts-ignore
+window.store = store

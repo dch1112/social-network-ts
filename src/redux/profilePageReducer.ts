@@ -21,8 +21,10 @@ type ActionTypes =
 export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionTypes) => {
   switch (action.type) {
     case UPDATE_NEW_POST_TEXT:
-      state.newPostText = action.text
-      return state
+      return {
+        ...state,
+        newPostText: action.text
+      }
     case ADD_NEW_POST_TEXT:
       if (state.newPostText && state.newPostText.trim()) {
         return {
