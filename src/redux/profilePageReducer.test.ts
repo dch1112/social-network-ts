@@ -1,60 +1,37 @@
 import {v1} from "uuid";
-import {addNewMessageCreator, dialogsPageReducer, updateNewMessageCreator} from "./dialogsPageReducer";
+import {addNewPostCreator, profilePageReducer, updateNewPostCreator} from "./profilePageReducer";
+import {ProfilePageType} from "../types/entities";
 
 let initialState: ProfilePageType
 
 beforeEach(() => {
   initialState = {
-    dialogs: [
-      {
-        id: '1', name: 'Dimych', newMessageText: ''
-      },
-      {
-        id: '2', name: 'Max', newMessageText: ''
-      },
-      {
-        id: '3', name: 'Sveta', newMessageText: ''
-      },
+    posts: [
+      {id: v1(), message: 'Hi, it\'s my first post', likesCount: 38},
+      {id: v1(), message: 'How are you?', likesCount: 17},
+      {id: v1(), message: 'Yes', likesCount: 11},
+      {id: v1(), message: 'Dada', likesCount: 15}
     ],
-    messages: {
-      '1': [
-        {id: v1(), message: 'Hi', isMine: true},
-        {id: v1(), message: 'Hey hey', isMine: false},
-        {id: v1(), message: 'Hey hey', isMine: false},
-        {id: v1(), message: 'Hey hey', isMine: false},
-        {id: v1(), message: 'How is your', isMine: true},
-        {id: v1(), message: 'Yo', isMine: false},
-        {id: v1(), message: 'Yo yo yo', isMine: false}
-      ],
-      '2': [
-        {id: v1(), message: 'Yo', isMine: true},
-        {id: v1(), message: 'Whats up', isMine: false}
-      ],
-      '3': [
-        {id: v1(), message: 'Hello', isMine: false}
-      ]
-    }
+    newPostText: ''
   }
 })
 
 test('update new message text', () => {
 
-  const newState = dialogsPageReducer(initialState, updateNewMessageCreator('hello', '2'))
+  const newState = profilePageReducer(initialState, updateNewPostCreator('hello'))
 
-  expect(newState.dialogs[0].newMessageText).toBe('')
-  expect(newState.dialogs[1].newMessageText).toBe('hello')
-  expect(newState.dialogs.length).toBe(3)
+  expect(newState.newPostText).toBe('hello')
+  expect(newState.posts.length).toBe(4)
 })
 
 test('add new message test', () => {
 
-  const newStateUpdateMessage = dialogsPageReducer(initialState, updateNewMessageCreator('hello', '2'))
-  const newStateAddMessage = dialogsPageReducer(newStateUpdateMessage, addNewMessageCreator('2'))
+  const newStateUpdateMessage = profilePageReducer(initialState, updateNewPostCreator('hello'))
+  const newStateAddMessage = profilePageReducer(newStateUpdateMessage, addNewPostCreator())
 
-  expect(newStateAddMessage.dialogs[0].newMessageText).toBe('')
-  expect(newStateAddMessage.dialogs[1].newMessageText).toBe('')
-  expect(newStateAddMessage.messages['2'].length).toBe(3)
-  expect(newStateAddMessage.messages['2'][2].id).toBeDefined()
-  expect(newStateAddMessage.messages['2'][2].message).toBe('hello')
-  expect(newStateAddMessage.messages['2'][2].isMine).toBe(true)
+  expect(newStateAddMessage.newPostText).toBe('')
+  expect(newStateAddMessage.posts.length).toBe(5)
+  expect(newStateAddMessage.posts[4].id).toBeDefined()
+  expect(newStateAddMessage.posts[4].message).toBe('hello')
+  expect(newStateAddMessage.posts[4].likesCount).toBe(0)
 })

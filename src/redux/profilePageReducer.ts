@@ -1,16 +1,24 @@
-import {ActionTypes, ProfilePageType} from "./store";
-import {v1} from "uuid";
-import {ChangeEvent} from "react";
-
-// type dialogsPageReducerProps = {
-//   state: DialogsPageType
-//   action: any
-// }
+import {ProfilePageType} from "../types/entities"
+import {v1} from "uuid"
 
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 const ADD_NEW_POST_TEXT = 'ADD_NEW_POST_TEXT'
 
-export const profilePageReducer = (state: ProfilePageType, action: ActionTypes) => {
+const initialState: ProfilePageType = {
+  posts: [
+    {id: v1(), message: 'Hi, it\'s my first post', likesCount: 38},
+    {id: v1(), message: 'How are you?', likesCount: 17},
+    {id: v1(), message: 'Yes', likesCount: 11},
+    {id: v1(), message: 'Dada', likesCount: 15}
+  ],
+  newPostText: ''
+}
+
+type ActionTypes =
+  ReturnType<typeof updateNewPostCreator>
+  | ReturnType<typeof addNewPostCreator>
+
+export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionTypes) => {
   switch (action.type) {
     case UPDATE_NEW_POST_TEXT:
       state.newPostText = action.text

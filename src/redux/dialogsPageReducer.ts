@@ -1,31 +1,10 @@
-import {ActionTypes} from "./store";
-import {v1} from "uuid";
-
-export type DialogType = {
-  id: string,
-  name: string,
-  newMessageText: string
-}
-
-export type MessageType = {
-  id: string,
-  message: string,
-  isMine: boolean
-}
-
-export type MessagesType = {
-  [key: string]: Array<MessageType>
-}
-
-export type DialogsPageType = {
-  dialogs: Array<DialogType>
-  messages: MessagesType
-}
+import {DialogsPageType} from "../types/entities"
+import {v1} from "uuid"
 
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT'
 const ADD_NEW_MESSAGE_TEXT = 'ADD_NEW_MESSAGE_TEXT'
 
-let initialState: DialogsPageType = {
+const initialState: DialogsPageType = {
   dialogs: [
     {
       id: '1', name: 'Dimych', newMessageText: ''
@@ -56,6 +35,11 @@ let initialState: DialogsPageType = {
     ]
   }
 }
+
+type ActionTypes =
+  ReturnType<typeof updateNewMessageCreator>
+  | ReturnType<typeof addNewMessageCreator>
+
 
 export const dialogsPageReducer = (state: DialogsPageType = initialState, action: ActionTypes) => {
   switch (action.type) {

@@ -1,5 +1,3 @@
-import {ActionTypes} from "../redux/store";
-
 export type PostType = {
   id: string,
   message: string,
@@ -30,17 +28,4 @@ export type DialogsPageType = {
 export type ProfilePageType = {
   posts: Array<PostType>,
   newPostText: string | undefined
-}
-
-export type StateType = {
-  profilePage: ProfilePageType,
-  dialogsPage: DialogsPageType
-}
-
-export type StoreType = {
-  _state: StateType
-  _callSubscriber: () => void
-  getState: () => StateType
-  subscribe: (observer: any) => void
-  dispatch: (action: ActionTypes) => void
 }
