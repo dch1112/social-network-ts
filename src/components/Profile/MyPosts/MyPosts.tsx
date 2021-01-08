@@ -2,7 +2,6 @@ import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './MyPosts.module.css'
 import {addNewPostCreator, updateNewPostCreator} from "../../../redux/profilePageReducer";
 import {ProfilePageType} from "../../../redux/store";
-import {addNewMessageCreator} from "../../../redux/dialogsPageReducer";
 
 type PropsType = {
   profilePage: ProfilePageType

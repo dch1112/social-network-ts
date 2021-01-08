@@ -10,15 +10,6 @@ import {ChangeEvent} from "react";
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 const ADD_NEW_POST_TEXT = 'ADD_NEW_POST_TEXT'
 
-export const updateNewPostCreator = (text: string) => ({
-  type: UPDATE_NEW_POST_TEXT,
-  text: text
-} as const)
-
-export const addNewPostCreator = () => ({
-  type: ADD_NEW_POST_TEXT
-} as const)
-
 export const profilePageReducer = (state: ProfilePageType, action: ActionTypes) => {
   switch (action.type) {
     case UPDATE_NEW_POST_TEXT:
@@ -38,3 +29,11 @@ export const profilePageReducer = (state: ProfilePageType, action: ActionTypes) 
   }
 }
 
+export const updateNewPostCreator = (text: string) => ({
+  type: UPDATE_NEW_POST_TEXT,
+  text: text
+} as const)
+
+export const addNewPostCreator = () => ({
+  type: ADD_NEW_POST_TEXT
+} as const)

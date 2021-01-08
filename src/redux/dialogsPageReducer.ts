@@ -25,7 +25,7 @@ export type DialogsPageType = {
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT'
 const ADD_NEW_MESSAGE_TEXT = 'ADD_NEW_MESSAGE_TEXT'
 
-let initialState: DialogsPageType =  {
+let initialState: DialogsPageType = {
   dialogs: [
     {
       id: '1', name: 'Dimych', newMessageText: ''
@@ -57,18 +57,6 @@ let initialState: DialogsPageType =  {
   }
 }
 
-export const updateNewMessageCreator = (text: string, dialogId: string) => ({
-  type: UPDATE_NEW_MESSAGE_TEXT,
-  text: text,
-  dialogId: dialogId
-} as const)
-
-export const addNewMessageCreator = (dialogId: string) => ({
-  type: ADD_NEW_MESSAGE_TEXT,
-  dialogId: dialogId
-} as const)
-
-
 export const dialogsPageReducer = (state: DialogsPageType = initialState, action: ActionTypes) => {
   switch (action.type) {
     case "UPDATE_NEW_MESSAGE_TEXT":
@@ -91,7 +79,15 @@ export const dialogsPageReducer = (state: DialogsPageType = initialState, action
     default:
       return state
   }
-
-
 }
 
+export const updateNewMessageCreator = (text: string, dialogId: string) => ({
+  type: UPDATE_NEW_MESSAGE_TEXT,
+  text: text,
+  dialogId: dialogId
+} as const)
+
+export const addNewMessageCreator = (dialogId: string) => ({
+  type: ADD_NEW_MESSAGE_TEXT,
+  dialogId: dialogId
+} as const)
