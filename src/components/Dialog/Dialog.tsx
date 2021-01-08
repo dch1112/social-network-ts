@@ -7,7 +7,7 @@ import {useDispatch} from "react-redux";
 interface OwnProps {
   dialog: Array<MessageType>
   dialogName: DialogType
-  }
+}
 
 type Props = OwnProps;
 
@@ -22,7 +22,7 @@ const Dialog: FunctionComponent<Props> = (props) => {
     dispatch(addNewMessageCreator(props.dialogName.id))
   }
 
-  const onKeyPressHandler = (e:KeyboardEvent<HTMLInputElement>) => {
+  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       dispatch(addNewMessageCreator(props.dialogName.id))
     }
@@ -35,16 +35,19 @@ const Dialog: FunctionComponent<Props> = (props) => {
           Chat with {props.dialogName.name}
         </div>
         <div className={s.messages}>
-          {props.dialog.map((message) => (<div key={message.id}
-                                           className={s.dialogMessage}>
-            <div className={`${s.messageContainer} ${message.isMine ? s.mineMessage : s.notMineMessage}`}>
-              <div className={`${s.messageContent} ${message.isMine ? s.mineMessage : s.notMineMessage}`}>
-                <div className={s.messageText}>
-                  {message.message}
+          {props.dialog.map((message) => (
+            <div
+              key={message.id}
+              className={s.dialogMessage}
+            >
+              <div className={`${s.messageContainer} ${message.isMine ? s.mineMessage : s.notMineMessage}`}>
+                <div className={`${s.messageContent} ${message.isMine ? s.mineMessage : s.notMineMessage}`}>
+                  <div className={s.messageText}>
+                    {message.message}
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>))}
+            </div>))}
         </div>
         <div className={s.newMessage}>
           <input

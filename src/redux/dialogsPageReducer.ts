@@ -43,22 +43,36 @@ type ActionTypes =
 
 export const dialogsPageReducer = (state: DialogsPageType = initialState, action: ActionTypes) => {
   switch (action.type) {
-    case "UPDATE_NEW_MESSAGE_TEXT":
-      let dialog = state.dialogs.find(dialog => dialog.id === action.dialogId)
-      if (dialog) {
-        dialog.newMessageText = action.text
+    case "UPDATE_NEW_MESSAGE_TEXT": {
+      return {
+        ...state,
+        dialogs: state.dialogs.map((d) => (
+          d.id === action.dialogId
+            ? {...d, newMessageText: action.text}
+            : d
+        ))
       }
-      return {...state}
-    case 'ADD_NEW_MESSAGE_TEXT':
+    }
+    case 'ADD_NEW_MESSAGE_TEXT': {
       let addMessageDialog = state.dialogs.find(dialog => dialog.id === action.dialogId)
       if (addMessageDialog && addMessageDialog.newMessageText.trim()) {
-        let newMessage = {
-          id: v1(), message: addMessageDialog.newMessageText.trim(), isMine: true
+        return {
+          ...state,
+          messages: {...state.messages,
+            [action.dialogId]: [...state.messages[action.dialogId], {
+              id: v1(),
+              message: addMessageDialog.newMessageText.trim(),
+              isMine: true
+            }]
+          },
+          dialogs: state.dialogs.map((d) => (
+            d.id === action.dialogId
+              ? {...d, newMessageText: ''}
+              : d
+          ))
         }
-        state.messages[addMessageDialog.id].push(newMessage)
-        addMessageDialog.newMessageText = ''
-        return {...state}
       }
+    }
       return state
     default:
       return state

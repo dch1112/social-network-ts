@@ -33,7 +33,8 @@ const MyPosts = (props: PropsType) => {
         <div className={s.likes}>
           <img className={s.likeImg}
                src="https://www.freeiconspng.com/thumbs/facebook-love-png/facebook-love-png-6.png"
-               alt=""/>
+               alt=""
+          />
           {post.likesCount}
         </div>
       </div>

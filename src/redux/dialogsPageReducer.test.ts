@@ -1,5 +1,6 @@
 import {v1} from "uuid";
-import {addNewMessageCreator, dialogsPageReducer, DialogsPageType, updateNewMessageCreator} from "./dialogsPageReducer";
+import {addNewMessageCreator, dialogsPageReducer, updateNewMessageCreator} from "./dialogsPageReducer";
+import {DialogsPageType} from "../types/entities";
 
 let initialState: DialogsPageType
 
@@ -46,7 +47,7 @@ test('update new message text', () => {
   expect(newState.dialogs.length).toBe(3)
 })
 
-test('add new message test', () => {
+test('add new message', () => {
 
   const newStateUpdateMessage = dialogsPageReducer(initialState, updateNewMessageCreator('hello', '2'))
   const newStateAddMessage = dialogsPageReducer(newStateUpdateMessage, addNewMessageCreator('2'))

@@ -16,7 +16,7 @@ beforeEach(() => {
   }
 })
 
-test('update new message text', () => {
+test('update new post text', () => {
 
   const newState = profilePageReducer(initialState, updateNewPostCreator('hello'))
 
@@ -24,7 +24,7 @@ test('update new message text', () => {
   expect(newState.posts.length).toBe(4)
 })
 
-test('add new message test', () => {
+test('add new post', () => {
 
   const newStateUpdateMessage = profilePageReducer(initialState, updateNewPostCreator('hello'))
   const newStateAddMessage = profilePageReducer(newStateUpdateMessage, addNewPostCreator())
