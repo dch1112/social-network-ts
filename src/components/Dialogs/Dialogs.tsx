@@ -1,18 +1,16 @@
 import React from 'react';
-import {ActionTypes, DialogsPageType} from "../../redux/store";
 import Dialog from "../Dialog/Dialog";
 import {NavLink, useParams} from "react-router-dom";
 import s from './Dialogs.module.css'
+import {DialogsPageType} from "../../types/entities";
 
 type propsType = {
   dialogsPage: DialogsPageType
-  dispatch: (action: ActionTypes) => void
 }
 
 const Dialogs = (props: propsType) => {
   const params = useParams<{ dialogId: string }>()
   const activeDialog = props.dialogsPage.messages[params.dialogId]              //.find((dialog) => dialog.id === params.dialogId)
-  // debugger
   const name = props.dialogsPage.dialogs.find(dialog => dialog.id === params.dialogId)
   return (
     <div className={s.dialogsContainer}>
@@ -26,9 +24,11 @@ const Dialogs = (props: propsType) => {
           </div>
         ))}
       </div>
-      {activeDialog && name && <Dialog dialogName={name}
-                                       dialog={activeDialog}
-                                       dispatch={props.dispatch}/>}
+      {activeDialog && name
+      && <Dialog
+        dialogName={name}
+        dialog={activeDialog}
+      />}
 
     </div>
   );

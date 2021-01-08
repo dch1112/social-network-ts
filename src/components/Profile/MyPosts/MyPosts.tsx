@@ -1,27 +1,26 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './MyPosts.module.css'
 import {addNewPostCreator, updateNewPostCreator} from "../../../redux/profilePageReducer";
-import {ProfilePageType} from "../../../redux/store";
+import {ProfilePageType} from "../../../types/entities";
+import {useDispatch} from "react-redux";
 
 type PropsType = {
   profilePage: ProfilePageType
-  dispatch: (action: any) => void
 }
 
-
 const MyPosts = (props: PropsType) => {
-
+  const dispatch = useDispatch()
   const onChangePostHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    props.dispatch(updateNewPostCreator(e.currentTarget.value))
+    dispatch(updateNewPostCreator(e.currentTarget.value))
   }
 
   const onAddPostHandler = () => {
-    props.dispatch(addNewPostCreator())
+    dispatch(addNewPostCreator())
   }
 
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      props.dispatch(addNewPostCreator())
+      dispatch(addNewPostCreator())
     }
   }
 

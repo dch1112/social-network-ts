@@ -1,28 +1,30 @@
 import React, {ChangeEvent, FunctionComponent, KeyboardEvent} from 'react';
 import s from "../Dialog/Dialog.module.css";
-import {ActionTypes, DialogType, MessageType} from "../../redux/store";
 import {addNewMessageCreator, updateNewMessageCreator} from "../../redux/dialogsPageReducer";
+import {DialogType, MessageType} from "../../types/entities";
+import {useDispatch} from "react-redux";
 
 interface OwnProps {
   dialog: Array<MessageType>
   dialogName: DialogType
-  dispatch: (action: ActionTypes) => void
   }
 
 type Props = OwnProps;
 
 const Dialog: FunctionComponent<Props> = (props) => {
+  const dispatch = useDispatch()
+
   const onChangeMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    props.dispatch(updateNewMessageCreator(e.currentTarget.value, props.dialogName.id))
+    dispatch(updateNewMessageCreator(e.currentTarget.value, props.dialogName.id))
   }
 
   const onAddMessageHandler = () => {
-    props.dispatch(addNewMessageCreator(props.dialogName.id))
+    dispatch(addNewMessageCreator(props.dialogName.id))
   }
 
   const onKeyPressHandler = (e:KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      props.dispatch(addNewMessageCreator(props.dialogName.id))
+      dispatch(addNewMessageCreator(props.dialogName.id))
     }
   }
 
