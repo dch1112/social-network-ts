@@ -39,7 +39,7 @@ const Dialogs = (props: Props) => {
   );
 }
 
-const mapStateToProps = (state: DialogsPageType) => ({dialogsPage: state})
+const mapStateToProps = (state: AppRootStateType) => ({dialogsPage: state.dialogsPage})
 const mapDispatchToProps = (dispatch: AppDispatch) => ({dispatch})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dialogs)
