@@ -7,8 +7,6 @@ import {AppRootStateType} from "./redux/redux-store";
 import {DialogsPageType, ProfilePageType} from "./types/entities";
 
 function App() {
-  const dialogsPage = useSelector<AppRootStateType, DialogsPageType>(state => state.dialogsPage)
-  const profilePage = useSelector<AppRootStateType, ProfilePageType>(state => state.profilePage)
   return (
     <BrowserRouter>
       <div className="wrapper">
@@ -18,16 +16,12 @@ function App() {
           <Route path="/users" render={() => <Users/>}/>
           <Route path="/dialogs/:dialogId?"
                  render={
-                   () => <Dialogs
-                     dialogsPage={dialogsPage}
-                   />}
+                   () => <Dialogs/>}
           />
           <Route exact
                  path="/"
                  render={
-                   () => <Profile
-                     profilePage={profilePage}
-                   />}
+                   () => <Profile/>}
           />
         </section>
       </div>

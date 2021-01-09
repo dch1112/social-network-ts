@@ -36,7 +36,7 @@ const initialState: DialogsPageType = {
   }
 }
 
-type ActionTypes =
+export type ActionTypes =
   ReturnType<typeof updateNewMessageCreator>
   | ReturnType<typeof addNewMessageCreator>
 
