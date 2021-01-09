@@ -31,9 +31,10 @@ const MyPosts = (props: PropsType) => {
           {post.message}
         </div>
         <div className={s.likes}>
-          <img className={s.likeImg}
-               src="https://www.freeiconspng.com/thumbs/facebook-love-png/facebook-love-png-6.png"
-               alt=""
+          <img
+            className={s.likeImg}
+            src="https://www.freeiconspng.com/thumbs/facebook-love-png/facebook-love-png-6.png"
+            alt=""
           />
           {post.likesCount}
         </div>

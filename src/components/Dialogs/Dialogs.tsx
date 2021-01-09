@@ -3,24 +3,29 @@ import Dialog from "../Dialog/Dialog";
 import {NavLink, useParams} from "react-router-dom";
 import s from './Dialogs.module.css'
 import {DialogsPageType} from "../../types/entities";
+import {connect, useSelector} from "react-redux";
+import {AppDispatch, AppRootStateType} from "../../redux/redux-store";
 
-type propsType = {
+interface OwnProps {
   dialogsPage: DialogsPageType
+  dispatch: AppDispatch
 }
 
-const Dialogs = (props: propsType) => {
+type Props = OwnProps;
+
+const Dialogs = (props: Props) => {
   const params = useParams<{ dialogId: string }>()
-  const activeDialog = props.dialogsPage.messages[params.dialogId]              //.find((dialog) => dialog.id === params.dialogId)
-  const name = props.dialogsPage.dialogs.find(dialog => dialog.id === params.dialogId)
+  const dialogsPage = useSelector<AppRootStateType, DialogsPageType>(state => state.dialogsPage)
+  const activeDialog = dialogsPage.messages[params.dialogId]
+  const name = dialogsPage.dialogs.find(dialog => dialog.id === params.dialogId)
   return (
     <div className={s.dialogsContainer}>
       <div className={s.dialogNames}>
-        {props.dialogsPage.dialogs.map((dialog) => (
+        {dialogsPage.dialogs.map((dialog) => (
           <div key={dialog.id}>
             <NavLink to={'/dialogs/' + dialog.id} activeClassName={s.dialogNameActive} className={s.dialogName}>
               {dialog.name}
             </NavLink>
-
           </div>
         ))}
       </div>
@@ -28,9 +33,13 @@ const Dialogs = (props: propsType) => {
       && <Dialog
         dialogName={name}
         dialog={activeDialog}
+        dispatch={props.dispatch}
       />}
-
     </div>
   );
 }
-export default Dialogs;
+
+const mapStateToProps = (state: DialogsPageType) => ({dialogsPage: state})
+const mapDispatchToProps = (dispatch: AppDispatch) => ({dispatch})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dialogs)
