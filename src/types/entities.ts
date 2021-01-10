@@ -29,3 +29,20 @@ export type ProfilePageType = {
   posts: Array<PostType>,
   newPostText: string | undefined
 }
+
+export type UserType = {
+  "name": string
+  "id": number
+  "photos": {
+    "small": string | null
+    "large": string | null
+  }
+  "status": string | null
+  "followed": boolean
+}
+
+export type UsersPageType = {
+  "items": Array<UserType>
+  "totalCount": number
+  "error": string | null
+}
