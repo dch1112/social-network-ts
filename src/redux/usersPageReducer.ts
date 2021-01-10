@@ -11,7 +11,7 @@ const initialState: UsersPageType =
         "name": "Shubert",
         "id": 1,
         "photos": {
-          "small": null,
+          "small": 'https://papers.ch/wp-content/uploads/nik-avatar-square.png',
           "large": null
         },
         "status": null,
@@ -25,14 +25,14 @@ const initialState: UsersPageType =
           "large": null
         },
         "status": null,
-        "followed": false
+        "followed": true
       }
     ],
     "totalCount": 30,
     "error": null
   }
 
-type ActionTypes =
+export type ActionTypes =
   ReturnType<typeof followUser>
   | ReturnType<typeof unfollowUser>
   | ReturnType<typeof setUsers>
@@ -63,17 +63,17 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Ac
   }
 }
 
-const followUser = (userId: number) => ({
+export const followUser = (userId: number) => ({
   type: FOLLOW,
   payload: {userId}
 } as const)
 
-const unfollowUser = (userId: number) => ({
+export const unfollowUser = (userId: number) => ({
   type: UNFOLLOW,
   payload: {userId}
 } as const)
 
-const setUsers = (users: UsersPageType) => ({
+export const setUsers = (users: UsersPageType) => ({
   type: SET_USERS,
   payload: {users}
 } as const)
