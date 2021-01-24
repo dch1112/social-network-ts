@@ -25,7 +25,10 @@ const MyPosts = (props: PropsType) => {
   }
 
   let posts = props.profilePage.posts.map((post) => (
-    <div className={s.postContainer}>
+    <div
+      key={post.id}
+      className={s.postContainer}
+    >
       <div className={s.postContent}>
         <div className={s.postMessage}>
           {post.message}
