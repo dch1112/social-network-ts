@@ -1,0 +1,9 @@
+.active {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.page {
+  cursor: pointer;
+}

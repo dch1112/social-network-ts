@@ -1,10 +1,11 @@
 import {UsersPageType} from "../types/entities";
-import axios from "axios";
-import {Dispatch} from "redux";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
+enum ACTION_TYPES {
+  FOLLOW = 'users/FOLLOW',
+  UNFOLLOW = 'users/UNFOLLOW',
+  SET_USERS = 'users/SET_USERS',
+  SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE',
+}
 
 const initialState: UsersPageType =
   {
@@ -31,33 +32,41 @@ const initialState: UsersPageType =
       }
     ],
     "totalCount": 30,
-    "error": null
+    "error": null,
+    "currentPage": 1,
+    "pageSize": 10
   }
 
 export type ActionTypes =
   ReturnType<typeof followUser>
   | ReturnType<typeof unfollowUser>
   | ReturnType<typeof setUsers>
+  | ReturnType<typeof setCurrentPage>
 
 export const usersPageReducer = (state: UsersPageType = initialState, action: ActionTypes) => {
   switch (action.type) {
-    case FOLLOW: {
+    case ACTION_TYPES.FOLLOW: {
       return {
         ...state,
         items: state.items.map(item => item.id === action.payload.userId ? {...item, followed: true} : item)
       }
     }
-    case UNFOLLOW: {
+    case ACTION_TYPES.UNFOLLOW: {
       return {
         ...state,
         items: state.items.map(item => item.id === action.payload.userId ? {...item, followed: false} : item)
       }
     }
-    case
-    SET_USERS: {
+    case ACTION_TYPES.SET_USERS: {
       return {
         ...state,
         ...action.payload.users
+      }
+    }
+    case ACTION_TYPES.SET_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: action.payload.currentPage
       }
     }
     default:
@@ -66,24 +75,21 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Ac
 }
 
 export const followUser = (userId: number) => ({
-  type: FOLLOW,
+  type: ACTION_TYPES.FOLLOW,
   payload: {userId}
 } as const)
 
 export const unfollowUser = (userId: number) => ({
-  type: UNFOLLOW,
+  type: ACTION_TYPES.UNFOLLOW,
   payload: {userId}
 } as const)
 
 export const setUsers = (users: UsersPageType) => ({
-  type: SET_USERS,
+  type: ACTION_TYPES.SET_USERS,
   payload: {users}
 } as const)
 
-
-export const getUsers = (page: number, count: number) => (dispatch: Dispatch<any>) => {
-  axios
-    .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${count}`)
-    // .then(console.log)
-    .then((res) => dispatch(setUsers(res.data)))
-}
+export const setCurrentPage = (currentPage: number) => ({
+  type: ACTION_TYPES.SET_CURRENT_PAGE,
+  payload: {currentPage}
+} as const)

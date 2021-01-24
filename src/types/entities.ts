@@ -45,4 +45,6 @@ export type UsersPageType = {
   "items": Array<UserType>
   "totalCount": number
   "error": string | null
+  "currentPage": number
+  "pageSize": number
 }

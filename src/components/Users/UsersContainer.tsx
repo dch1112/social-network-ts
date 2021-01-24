@@ -1,49 +1,60 @@
 import React from 'react'
 import {connect, ConnectedProps} from "react-redux"
-import {followUser, getUsers, unfollowUser} from "../../redux/usersPageReducer"
+import {followUser, setCurrentPage, setUsers, unfollowUser} from "../../redux/usersPageReducer"
 import {UsersPageType} from "../../types/entities"
 import {AppDispatch, AppRootStateType} from "../../redux/redux-store"
-import User from "../User/User";
+import {Dispatch} from "redux";
+import axios from "axios";
+import Users from "./Users";
+import Pages from "./Pages/Pages";
 
 class UsersContainer extends React.Component<TProps> {
-  // getUsers = (page: number, count: number) => {
-  //   axios
-  //     .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${count}`)
-  //     .then((res) => this.props.dispatch(setUsers(res.data)))
-  // }
-
   componentDidMount() {
     // @ts-ignore
-    this.props.dispatch(this.props.getUsers(2, 100))
+    this.props.dispatch(this.props.getUsers(this.props.currentPage, this.props.pageSize))
+  }
+
+  setCurrentPageHandler = (currentPage: number) => {
+    this.props.setCurrentPage(currentPage)
+    // @ts-ignore
+    this.props.dispatch(this.props.getUsers(currentPage, this.props.pageSize))
   }
 
   render() {
-    return <div>
-      {
-        this.props.items.map(user => {
-
-          const followUserHandler = () => {
-            this.props.dispatch(followUser(user.id))
-          }
-
-          const unfollowUserHandler = () => {
-            this.props.dispatch(unfollowUser(user.id))
-          }
-
-          return <User
-            key={user.id}
-            user={user}
-            followUserHandler={followUserHandler}
-            unfollowUserHandler={unfollowUserHandler}
-          />
-        })
-      }
-    </div>
+    return <>
+      <Users
+        items={this.props.items}
+        followUserHandler={this.props.followUserHandler}
+        unfollowUserHandler={this.props.unfollowUserHandler}
+      />
+      <Pages
+        totalCount={this.props.totalCount}
+        pageSize={this.props.pageSize}
+        currentPage={this.props.currentPage}
+        setCurrentPageHandler={this.setCurrentPageHandler}
+      />
+    </>
   }
 }
 
 const mapStateToProps = (state: AppRootStateType): UsersPageType => (state.usersPage)
-const mapDispatchToProps = (dispatch: AppDispatch) => ({dispatch, getUsers})
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  dispatch,
+  getUsers: (page: number, count: number) => (dispatch: Dispatch<any>) => {
+    axios
+      .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${count}`)
+      .then((res) => dispatch(setUsers(res.data)))
+  },
+  followUserHandler: (id: number) => {
+    dispatch(followUser(id))
+  },
+  unfollowUserHandler: (id: number) => {
+    dispatch(unfollowUser(id))
+  },
+  setCurrentPage: (currentPage: number) => {
+    dispatch(setCurrentPage(currentPage))
+  },
+})
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 type TProps = ConnectedProps<typeof connector>

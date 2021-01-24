@@ -1,30 +1,28 @@
 import React from 'react'
-import {useDispatch, useSelector} from "react-redux"
-import {followUser, unfollowUser} from "../../redux/usersPageReducer"
-import {UsersPageType} from "../../types/entities"
-import {AppRootStateType} from "../../redux/redux-store"
-import User from "../User/User";
+import {UserType} from "../../types/entities"
+import User from "./User/User";
 
-const Users = () => {
-  const usersPage = useSelector<AppRootStateType, UsersPageType>(state => state.usersPage)
-  const dispatch = useDispatch()
+interface OwnProps {
+  items: Array<UserType>
+  followUserHandler: (id: number) => void
+  unfollowUserHandler: (id: number) => void
+}
 
-  return (<div>
-      {usersPage.items.map(user => {
-        const followUserHandler = () => {
-          dispatch(followUser(user.id))
-        }
-        const unfollowUserHandler = () => {
-          dispatch(unfollowUser(user.id))
-        }
+type Props = OwnProps;
+
+const Users: React.FC<Props> = (props) => {
+  return <div>
+    {
+      props.items.map(user => {
         return <User
+          key={user.id}
           user={user}
-          followUserHandler={followUserHandler}
-          unfollowUserHandler={unfollowUserHandler}
+          followUserHandler={props.followUserHandler}
+          unfollowUserHandler={props.unfollowUserHandler}
         />
-      })}
-    </div>
-  )
+      })
+    }
+  </div>
 }
 
 export default Users
