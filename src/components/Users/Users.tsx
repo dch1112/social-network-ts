@@ -3,31 +3,25 @@ import {useDispatch, useSelector} from "react-redux"
 import {followUser, unfollowUser} from "../../redux/usersPageReducer"
 import {UsersPageType} from "../../types/entities"
 import {AppRootStateType} from "../../redux/redux-store"
-import s from './Users.module.css'
+import User from "../User/User";
 
 const Users = () => {
-  const dialogsPage = useSelector<AppRootStateType, UsersPageType>(state => state.usersPage)
+  const usersPage = useSelector<AppRootStateType, UsersPageType>(state => state.usersPage)
   const dispatch = useDispatch()
 
   return (<div>
-      {dialogsPage.items.map(item => {
+      {usersPage.items.map(user => {
         const followUserHandler = () => {
-          dispatch(followUser(item.id))
+          dispatch(followUser(user.id))
         }
         const unfollowUserHandler = () => {
-          dispatch(unfollowUser(item.id))
+          dispatch(unfollowUser(user.id))
         }
-        return <div key={item.id}>
-          <div className={s.avatar}>{item.photos.small
-            ? <img src={item.photos.small} alt=""/>
-            : <img src="https://papers.ch/wp-content/uploads/pascal-avatar-square.png" alt=""/>
-          }</div>
-          <div>{item.name}</div>
-          <div>{item.followed
-            ? <button onClick={unfollowUserHandler}>Unfollow</button>
-            : <button onClick={followUserHandler}>Follow</button>
-          }</div>
-        </div>
+        return <User
+          user={user}
+          followUserHandler={followUserHandler}
+          unfollowUserHandler={unfollowUserHandler}
+        />
       })}
     </div>
   )

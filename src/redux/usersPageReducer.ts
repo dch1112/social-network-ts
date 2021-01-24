@@ -1,4 +1,6 @@
 import {UsersPageType} from "../types/entities";
+import axios from "axios";
+import {Dispatch} from "redux";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -78,3 +80,10 @@ export const setUsers = (users: UsersPageType) => ({
   payload: {users}
 } as const)
 
+
+export const getUsers = (page: number, count: number) => (dispatch: Dispatch<any>) => {
+  axios
+    .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${count}`)
+    // .then(console.log)
+    .then((res) => dispatch(setUsers(res.data)))
+}

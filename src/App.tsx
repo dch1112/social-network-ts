@@ -2,6 +2,7 @@ import React from 'react';
 import {Header, Navbar, Profile, Dialogs, Users} from './components';
 import './App.css';
 import {BrowserRouter, Route} from "react-router-dom";
+import UsersContainer from "./components/Users/UsersContainer";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
           <Route
             path="/users"
             render={
-              () => <Users/>
+              () => <UsersContainer/>
             }
           />
           <Route
