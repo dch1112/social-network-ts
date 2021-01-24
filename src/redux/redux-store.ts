@@ -1,7 +1,8 @@
-import {combineReducers, createStore} from "redux"
+import {applyMiddleware, combineReducers, createStore} from "redux"
 import {dialogsPageReducer} from "./dialogsPageReducer"
 import {profilePageReducer} from "./profilePageReducer"
 import {usersPageReducer} from "./usersPageReducer";
+import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
   dialogsPage: dialogsPageReducer,
@@ -12,7 +13,7 @@ const rootReducer = combineReducers({
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppDispatch = typeof store.dispatch
 
-let store = createStore(rootReducer)
+let store = createStore(rootReducer, applyMiddleware(thunk))
 
 export default store
 
