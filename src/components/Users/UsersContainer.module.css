@@ -1,0 +1,23 @@
+.pagination {
+  display: flex;
+  list-style-type: none;
+  cursor: pointer;
+  margin: 20px;
+  padding: 20px;
+}
+
+.break {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.pages {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 0px;
+}
+
+.active {
+  color: #7c4c05;
+  font-weight: bold;
+}

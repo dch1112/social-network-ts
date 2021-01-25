@@ -31,7 +31,7 @@ const initialState: UsersPageType =
         "followed": true
       }
     ],
-    "totalCount": 30,
+    "totalCount": 0,
     "error": null,
     "currentPage": 1,
     "pageSize": 10

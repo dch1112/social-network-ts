@@ -7,11 +7,12 @@ import {Dispatch} from "redux";
 import axios from "axios";
 import Users from "./Users";
 import Pages from "./Pages/Pages";
+import ReactPaginate from "react-paginate";
+import s from './UsersContainer.module.css'
 
 class UsersContainer extends React.Component<TProps> {
   componentDidMount() {
-    // @ts-ignore
-    this.props.dispatch(this.props.getUsers(this.props.currentPage, this.props.pageSize))
+    this.setCurrentPageHandler(1)
   }
 
   setCurrentPageHandler = (currentPage: number) => {
@@ -27,12 +28,22 @@ class UsersContainer extends React.Component<TProps> {
         followUserHandler={this.props.followUserHandler}
         unfollowUserHandler={this.props.unfollowUserHandler}
       />
-      <Pages
-        totalCount={this.props.totalCount}
-        pageSize={this.props.pageSize}
-        currentPage={this.props.currentPage}
-        setCurrentPageHandler={this.setCurrentPageHandler}
-      />
+
+      <div>
+        <ReactPaginate
+          previousLabel={'<'}
+          nextLabel={'>'}
+          breakLabel={'...'}
+          breakClassName={s.break}
+          pageCount={Math.ceil(this.props.totalCount / this.props.pageSize)}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={({selected}) => this.setCurrentPageHandler(selected)}
+          containerClassName={s.pagination}
+          activeClassName={s.active}
+          pageLinkClassName={s.pages}
+        />
+      </div>
     </>
   }
 }
