@@ -2,7 +2,7 @@ import React from 'react'
 import {connect, ConnectedProps} from "react-redux"
 import {followUser, getUsers, setCurrentPage, setIsLoading, unfollowUser} from "../../redux/usersPageReducer"
 import {UsersPageType} from "../../types/entities"
-import {AppDispatch, AppRootStateType} from "../../redux/redux-store"
+import {AppRootStateType} from "../../redux/redux-store"
 import Users from "./Users";
 import ReactPaginate from "react-paginate";
 import s from './UsersContainer.module.css'
@@ -45,8 +45,8 @@ class UsersContainer extends React.Component<TProps> {
           items={this.props.items}
           defaultAvatar={this.props.defaultPhoto}
           isLoading={this.props.isLoading}
-          followUserHandler={this.props.followUserHandler}
-          unfollowUserHandler={this.props.unfollowUserHandler}
+          followUserHandler={this.props.followUser}
+          unfollowUserHandler={this.props.unfollowUser}
         />
       }
     </>
@@ -54,26 +54,14 @@ class UsersContainer extends React.Component<TProps> {
 }
 
 const mapStateToProps = (state: AppRootStateType): UsersPageType => (state.usersPage)
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  dispatch,
-  getUsers: (page: number, count: number) => {
-    // @ts-ignore
-    dispatch(getUsers(page, count))
-  },
-  followUserHandler: (id: number) => {
-    dispatch(followUser(id))
-  },
-  unfollowUserHandler: (id: number) => {
-    dispatch(unfollowUser(id))
-  },
-  setCurrentPage: (currentPage: number) => {
-    dispatch(setCurrentPage(currentPage))
-  },
-  setIsLoading: (isLoading: boolean) => {
-    dispatch(setIsLoading(isLoading))
-  },
-})
 
-const connector = connect(mapStateToProps, mapDispatchToProps)
+const connector = connect(mapStateToProps,
+  {
+    getUsers,
+    followUser,
+    unfollowUser,
+    setCurrentPage,
+    setIsLoading
+  })
 type TProps = ConnectedProps<typeof connector>
 export default connector(UsersContainer);
