@@ -8,11 +8,10 @@ const Navbar = (props: PropsType) => {
 
   return (
     <nav className={s.nav}>
-      <div><NavLink exact to="/" activeClassName={s.active} className={s.item}>Home</NavLink></div>
+      <div><NavLink to="/profile" activeClassName={s.active} className={s.item}>Home</NavLink></div>
       <div><NavLink to="/dialogs" activeClassName={s.active} className={s.item}>Dialogs</NavLink></div>
-      <div><NavLink to="/users"  activeClassName={s.active} className={s.item}>Users</NavLink></div>
+      <div><NavLink to="/users" activeClassName={s.active} className={s.item}>Users</NavLink></div>
     </nav>
-
   );
 };
 

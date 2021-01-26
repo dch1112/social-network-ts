@@ -1,8 +1,9 @@
 import React from 'react';
-import {Header, Navbar, Profile, Dialogs, Users} from './components';
+import {Header, Navbar, Dialogs} from './components';
 import './App.css';
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 function App() {
   return (
@@ -24,12 +25,17 @@ function App() {
             }
           />
           <Route
-            exact
-            path="/"
+            path="/profile/:userId?"
             render={
-              () => <Profile/>
+              () => <ProfileContainer/>
             }
           />
+          <Route
+            exact
+            path="/"
+          >
+            <Redirect to="/profile"/>
+          </Route>
         </section>
       </div>
     </BrowserRouter>

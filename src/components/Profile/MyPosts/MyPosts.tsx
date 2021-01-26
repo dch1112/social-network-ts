@@ -1,11 +1,12 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './MyPosts.module.css'
 import {addNewPostCreator, updateNewPostCreator} from "../../../redux/profilePageReducer";
-import {ProfilePageType} from "../../../types/entities";
+import {PostType, ProfilePageType} from "../../../types/entities";
 import {useDispatch} from "react-redux";
 
 type PropsType = {
-  profilePage: ProfilePageType
+  posts: Array<PostType>,
+  newPostText: string | undefined
 }
 
 const MyPosts = (props: PropsType) => {
@@ -24,7 +25,7 @@ const MyPosts = (props: PropsType) => {
     }
   }
 
-  let posts = props.profilePage.posts.map((post) => (
+  let posts = props.posts.map((post) => (
     <div
       key={post.id}
       className={s.postContainer}
@@ -49,7 +50,7 @@ const MyPosts = (props: PropsType) => {
       <div>My posts</div>
       <input
         className={s.newPostInput + ' ' + s.newPost}
-        value={props.profilePage.newPostText}
+        value={props.newPostText}
         onChange={onChangePostHandler}
         onKeyPress={onKeyPressHandler}
         autoFocus/>
