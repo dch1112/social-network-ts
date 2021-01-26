@@ -1,40 +1,25 @@
 import {UsersPageType} from "../types/entities";
+import defaultAvatar from './../defaultAvatar.png'
+import {Dispatch} from "redux";
+import axios from "axios";
 
 enum ACTION_TYPES {
   FOLLOW = 'users/FOLLOW',
   UNFOLLOW = 'users/UNFOLLOW',
   SET_USERS = 'users/SET_USERS',
   SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE',
+  SET_IS_LOADING = 'users/SET_IS_LOADING',
 }
 
 const initialState: UsersPageType =
   {
-    "items": [
-      {
-        "name": "Shubert",
-        "id": 1,
-        "photos": {
-          "small": 'https://papers.ch/wp-content/uploads/nik-avatar-square.png',
-          "large": null
-        },
-        "status": null,
-        "followed": false
-      },
-      {
-        "name": "Hacker",
-        "id": 2,
-        "photos": {
-          "small": null,
-          "large": null
-        },
-        "status": null,
-        "followed": true
-      }
-    ],
+    "items": [],
+    "defaultPhoto": defaultAvatar,
     "totalCount": 0,
     "error": null,
     "currentPage": 1,
-    "pageSize": 10
+    "pageSize": 10,
+    "isLoading": true,
   }
 
 export type ActionTypes =
@@ -42,6 +27,7 @@ export type ActionTypes =
   | ReturnType<typeof unfollowUser>
   | ReturnType<typeof setUsers>
   | ReturnType<typeof setCurrentPage>
+  | ReturnType<typeof setIsLoading>
 
 export const usersPageReducer = (state: UsersPageType = initialState, action: ActionTypes) => {
   switch (action.type) {
@@ -69,6 +55,12 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Ac
         currentPage: action.payload.currentPage
       }
     }
+    case ACTION_TYPES.SET_IS_LOADING: {
+      return {
+        ...state,
+        ...action.payload
+      }
+    }
     default:
       return state
   }
@@ -93,3 +85,17 @@ export const setCurrentPage = (currentPage: number) => ({
   type: ACTION_TYPES.SET_CURRENT_PAGE,
   payload: {currentPage}
 } as const)
+
+export const setIsLoading = (isLoading: boolean) => ({
+  type: ACTION_TYPES.SET_IS_LOADING,
+  payload: {isLoading}
+} as const)
+
+export const getUsers = (page: number, count: number) => (dispatch: Dispatch<any>) => {
+  dispatch(setIsLoading(true))
+  axios
+    .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${count}`)
+    .then((res) => dispatch(setUsers(res.data)))
+    .then(() => setTimeout(() => {}, 3000))
+    .then(() => dispatch(setIsLoading(false)))
+}

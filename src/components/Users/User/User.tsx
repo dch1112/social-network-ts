@@ -4,6 +4,7 @@ import {UserType} from "../../../types/entities";
 
 interface OwnProps {
   user: UserType
+  defaultAvatar: string
   followUserHandler: (id: number) => void
   unfollowUserHandler: (id: number) => void
 }
@@ -16,14 +17,13 @@ const User: FunctionComponent<Props> = (props) => {
     followUserHandler,
     unfollowUserHandler
   } = props
-  const DEFAULT_IMAGE = "https://papers.ch/wp-content/uploads/pascal-avatar-square.png"
 
   return <div key={user.id}>
     <div className={s.avatar}>
       <img
         src={user.photos.small
           ? user.photos.small
-          : DEFAULT_IMAGE}
+          : props.defaultAvatar}
         alt=""
       />
     </div>
