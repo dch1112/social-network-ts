@@ -43,7 +43,10 @@ export type UserType = {
 
 export type UsersPageType = {
   "items": Array<UserType>
-  "defaultPhoto": string
+  "defaultPhoto": {
+    "small": string
+    "large": string
+  }
   "totalCount": number
   "error": string | null
   "currentPage": number

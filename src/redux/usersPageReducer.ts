@@ -1,7 +1,6 @@
 import {UsersPageType} from "../types/entities";
 import defaultAvatar from './../defaultAvatar.png'
 import {Dispatch} from "redux";
-import axios from "axios";
 import {usersAPI} from "../api/api";
 
 enum ACTION_TYPES {
@@ -15,7 +14,10 @@ enum ACTION_TYPES {
 const initialState: UsersPageType =
   {
     "items": [],
-    "defaultPhoto": defaultAvatar,
+    "defaultPhoto": {
+      "small": defaultAvatar,
+      "large": defaultAvatar,
+    },
     "totalCount": 0,
     "error": null,
     "currentPage": 1,
@@ -79,7 +81,7 @@ export const unfollowUser = (userId: number) => ({
 
 export const setUsers = (users: UsersPageType) => ({
   type: ACTION_TYPES.SET_USERS,
-  payload: {users}
+  payload: {...users}
 } as const)
 
 export const setCurrentPage = (currentPage: number) => ({

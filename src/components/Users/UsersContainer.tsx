@@ -49,7 +49,7 @@ class UsersContainer extends React.Component<TProps> {
         </>
         : <Users
           items={this.props.items}
-          defaultAvatar={this.props.defaultPhoto}
+          defaultAvatar={this.props.defaultPhoto.small}
           isLoading={this.props.isLoading}
           followUserHandler={this.props.followUser}
           unfollowUserHandler={this.props.unfollowUser}
@@ -70,4 +70,4 @@ const connector = connect(mapStateToProps,
     setIsLoading
   })
 type TProps = ConnectedProps<typeof connector>
-export default connector(UsersContainer);
+export default connector(UsersContainer)
