@@ -2,6 +2,7 @@ import {UsersPageType} from "../types/entities";
 import defaultAvatar from './../defaultAvatar.png'
 import {Dispatch} from "redux";
 import axios from "axios";
+import {usersAPI} from "../api/api";
 
 enum ACTION_TYPES {
   FOLLOW = 'users/FOLLOW',
@@ -46,13 +47,13 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Ac
     case ACTION_TYPES.SET_USERS: {
       return {
         ...state,
-        ...action.payload.users
+        ...action.payload
       }
     }
     case ACTION_TYPES.SET_CURRENT_PAGE: {
       return {
         ...state,
-        currentPage: action.payload.currentPage
+        ...action.payload
       }
     }
     case ACTION_TYPES.SET_IS_LOADING: {
@@ -91,11 +92,9 @@ export const setIsLoading = (isLoading: boolean) => ({
   payload: {isLoading}
 } as const)
 
-export const getUsers = (page: number, count: number) => (dispatch: Dispatch<any>) => {
+export const requestUsers = (page: number, count: number) => (dispatch: Dispatch<any>) => {
   dispatch(setIsLoading(true))
-  axios
-    .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${count}`)
-    .then((res) => dispatch(setUsers(res.data)))
-    .then(() => setTimeout(() => {}, 3000))
-    .then(() => dispatch(setIsLoading(false)))
+  usersAPI.getUsers(page, count)
+    .then((data) => dispatch(setUsers(data)))
+    .then(() => setTimeout(() => dispatch(setIsLoading(false)), 2000))
 }

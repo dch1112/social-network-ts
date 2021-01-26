@@ -1,6 +1,12 @@
 import React from 'react'
 import {connect, ConnectedProps} from "react-redux"
-import {followUser, getUsers, setCurrentPage, setIsLoading, unfollowUser} from "../../redux/usersPageReducer"
+import {
+  followUser,
+  requestUsers,
+  setCurrentPage,
+  setIsLoading,
+  unfollowUser
+} from "../../redux/usersPageReducer"
 import {UsersPageType} from "../../types/entities"
 import {AppRootStateType} from "../../redux/redux-store"
 import Users from "./Users";
@@ -10,12 +16,12 @@ import UserLoading from "./UserLoading/UserLoading";
 
 class UsersContainer extends React.Component<TProps> {
   componentDidMount() {
-    this.props.getUsers(1, this.props.pageSize)
+    this.props.requestUsers(1, this.props.pageSize)
   }
 
   setCurrentPageHandler = (currentPage: number) => {
     this.props.setCurrentPage(currentPage)
-    this.props.getUsers(currentPage, this.props.pageSize)
+    this.props.requestUsers(currentPage, this.props.pageSize)
   }
 
   render() {
@@ -57,7 +63,7 @@ const mapStateToProps = (state: AppRootStateType): UsersPageType => (state.users
 
 const connector = connect(mapStateToProps,
   {
-    getUsers,
+    requestUsers,
     followUser,
     unfollowUser,
     setCurrentPage,
